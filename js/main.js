@@ -348,6 +348,134 @@
 
    /* Initialize
     * ------------------------------------------------------ */
+   /* neural network canvas animation
+    * ------------------------------------------------------ */
+    const ssNeuralNet = function() {
+
+        const canvas = document.getElementById('neural-net-canvas');
+        if (!canvas) return;
+
+        const ctx = canvas.getContext('2d');
+        let nodes = [];
+        let animId;
+        const GOLD = [234, 190, 124];
+        const TEAL = [35, 150, 127];
+        const NODE_COUNT = 35;
+        const CONNECT_DIST = 150;
+        const MOUSE = { x: -1000, y: -1000 };
+
+        function resize() {
+            canvas.width = canvas.offsetWidth * (window.devicePixelRatio || 1);
+            canvas.height = canvas.offsetHeight * (window.devicePixelRatio || 1);
+            ctx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
+        }
+
+        function createNodes() {
+            const w = canvas.offsetWidth;
+            const h = canvas.offsetHeight;
+            nodes = [];
+            for (let i = 0; i < NODE_COUNT; i++) {
+                const isTeal = Math.random() > 0.5;
+                const color = isTeal ? TEAL : GOLD;
+                nodes.push({
+                    x: Math.random() * w,
+                    y: Math.random() * h,
+                    vx: (Math.random() - 0.5) * 0.6,
+                    vy: (Math.random() - 0.5) * 0.6,
+                    r: Math.random() * 2.5 + 1.5,
+                    color: color,
+                    pulse: Math.random() * Math.PI * 2
+                });
+            }
+        }
+
+        function draw() {
+            const w = canvas.offsetWidth;
+            const h = canvas.offsetHeight;
+            ctx.clearRect(0, 0, w, h);
+
+            // update positions
+            for (let n of nodes) {
+                n.x += n.vx;
+                n.y += n.vy;
+                n.pulse += 0.02;
+                if (n.x < 0 || n.x > w) n.vx *= -1;
+                if (n.y < 0 || n.y > h) n.vy *= -1;
+
+                // subtle mouse repulsion
+                const dx = n.x - MOUSE.x;
+                const dy = n.y - MOUSE.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 100) {
+                    n.vx += dx * 0.0005;
+                    n.vy += dy * 0.0005;
+                }
+
+                // clamp speed
+                const speed = Math.sqrt(n.vx * n.vx + n.vy * n.vy);
+                if (speed > 1) {
+                    n.vx = (n.vx / speed) * 1;
+                    n.vy = (n.vy / speed) * 1;
+                }
+            }
+
+            // draw connections
+            for (let i = 0; i < nodes.length; i++) {
+                for (let j = i + 1; j < nodes.length; j++) {
+                    const dx = nodes[i].x - nodes[j].x;
+                    const dy = nodes[i].y - nodes[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < CONNECT_DIST) {
+                        const alpha = (1 - dist / CONNECT_DIST) * 0.25;
+                        ctx.beginPath();
+                        ctx.moveTo(nodes[i].x, nodes[i].y);
+                        ctx.lineTo(nodes[j].x, nodes[j].y);
+                        ctx.strokeStyle = 'rgba(' + GOLD[0] + ',' + GOLD[1] + ',' + GOLD[2] + ',' + alpha + ')';
+                        ctx.lineWidth = 0.8;
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            // draw nodes
+            for (let n of nodes) {
+                const pulseR = n.r + Math.sin(n.pulse) * 0.8;
+                // glow
+                ctx.beginPath();
+                ctx.arc(n.x, n.y, pulseR * 3, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(' + n.color[0] + ',' + n.color[1] + ',' + n.color[2] + ',0.06)';
+                ctx.fill();
+                // core
+                ctx.beginPath();
+                ctx.arc(n.x, n.y, pulseR, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(' + n.color[0] + ',' + n.color[1] + ',' + n.color[2] + ',0.85)';
+                ctx.fill();
+            }
+
+            animId = requestAnimationFrame(draw);
+        }
+
+        canvas.addEventListener('mousemove', function(e) {
+            const rect = canvas.getBoundingClientRect();
+            MOUSE.x = e.clientX - rect.left;
+            MOUSE.y = e.clientY - rect.top;
+        });
+        canvas.addEventListener('mouseleave', function() {
+            MOUSE.x = -1000;
+            MOUSE.y = -1000;
+        });
+
+        window.addEventListener('resize', function() {
+            resize();
+            createNodes();
+        });
+
+        resize();
+        createNodes();
+        draw();
+    };
+
+
     (function ssInit() {
 
         ssPreloader();
@@ -358,6 +486,7 @@
         ssLightbox();
         ssAlertBoxes();
         ssMoveTo();
+        ssNeuralNet();
 
     })();
 

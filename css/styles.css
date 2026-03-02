@@ -3413,6 +3413,14 @@ img.u-pull-left {
     vertical-align : bottom;
 }
 
+#neural-net-canvas {
+    width          : 100%;
+    height         : 480px;
+    border-radius  : 4px;
+    background     : rgba(255, 255, 255, .02);
+    display        : block;
+}
+
 .about-info__text {
     padding     : var(--vspace-3_5) 10vw var(--vspace-2) 0;
     margin-left : -4rem;
