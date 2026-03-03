@@ -3943,7 +3943,340 @@ img.u-pull-left {
     color       : var(--color-text-light);
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
+ * ## project animations (portfolio thumbnails)
+ * ------------------------------------------------------------------- */
+.project-anim {
+    width              : var(--item-min-height);
+    height             : var(--item-min-height);
+    margin             : 0;
+    overflow           : hidden;
+    position           : relative;
+    border-radius      : 2px;
+}
+
+/* --- Luma: AI Video Automation --- */
+.project-anim--luma {
+    background : linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 100%);
+}
+.project-anim--luma .anim-play {
+    width         : 44px;
+    height        : 44px;
+    border        : 2px solid rgba(168, 85, 247, 0.7);
+    border-radius : 50%;
+    position      : absolute;
+    top           : 50%;
+    left          : 50%;
+    transform     : translate(-50%, -50%);
+    animation     : lumaPulse 2s ease-in-out infinite;
+}
+.project-anim--luma .anim-play::after {
+    content      : "";
+    position     : absolute;
+    top          : 50%;
+    left         : 54%;
+    transform    : translate(-50%, -50%);
+    border-style : solid;
+    border-width : 7px 0 7px 13px;
+    border-color : transparent transparent transparent rgba(168, 85, 247, 0.85);
+}
+.project-anim--luma .anim-timeline {
+    position   : absolute;
+    bottom     : 25%;
+    left       : 15%;
+    width      : 70%;
+    height     : 2px;
+    background : rgba(168, 85, 247, 0.15);
+    border-radius : 1px;
+}
+.project-anim--luma .anim-timeline::after {
+    content       : "";
+    position      : absolute;
+    top           : -3px;
+    left          : 0;
+    width         : 8px;
+    height        : 8px;
+    border-radius : 50%;
+    background    : #a855f7;
+    animation     : lumaScrub 3s ease-in-out infinite;
+}
+.project-anim--luma .anim-bar {
+    position      : absolute;
+    bottom        : 15%;
+    height        : 3px;
+    border-radius : 1.5px;
+    opacity       : 0.2;
+}
+.project-anim--luma .anim-bar:nth-child(3) {
+    left       : 15%;
+    width      : 20%;
+    background : #7c3aed;
+}
+.project-anim--luma .anim-bar:nth-child(4) {
+    left       : 38%;
+    width      : 14%;
+    background : #a855f7;
+}
+.project-anim--luma .anim-bar:nth-child(5) {
+    left       : 55%;
+    width      : 30%;
+    background : #7c3aed;
+}
+@keyframes lumaPulse {
+    0%, 100% { transform : translate(-50%, -50%) scale(1); opacity : 0.7; }
+    50%      { transform : translate(-50%, -50%) scale(1.12); opacity : 1; }
+}
+@keyframes lumaScrub {
+    0%, 100% { left : 0%; }
+    50%      { left : calc(100% - 8px); }
+}
+
+/* --- Kinesys CRM: CRM Backend --- */
+.project-anim--kinesys {
+    background : linear-gradient(135deg, #0a0f1a 0%, #0a1a2e 100%);
+}
+.project-anim--kinesys .anim-node {
+    width         : 8px;
+    height        : 8px;
+    border-radius : 50%;
+    background    : rgba(59, 130, 246, 0.7);
+    position      : absolute;
+    animation     : kinesysPulse 2.5s ease-in-out infinite;
+}
+.project-anim--kinesys .anim-node:nth-child(1) { top : 28%; left : 25%; animation-delay : 0s; }
+.project-anim--kinesys .anim-node:nth-child(2) { top : 28%; left : 65%; animation-delay : 0.4s; }
+.project-anim--kinesys .anim-node:nth-child(3) { top : 58%; left : 45%; animation-delay : 0.8s; }
+.project-anim--kinesys .anim-node:nth-child(4) { top : 58%; left : 78%; animation-delay : 1.2s; }
+.project-anim--kinesys .anim-node:nth-child(5) { top : 78%; left : 30%; animation-delay : 0.6s; }
+.project-anim--kinesys .anim-line {
+    position   : absolute;
+    height     : 1px;
+    background : rgba(59, 130, 246, 0.15);
+    transform-origin : left center;
+}
+.project-anim--kinesys .anim-line:nth-child(6) {
+    top   : 31%; left : 29%; width : 36%;
+}
+.project-anim--kinesys .anim-line:nth-child(7) {
+    top   : 43%; left : 29%; width : 25%;
+    transform : rotate(40deg);
+}
+.project-anim--kinesys .anim-line:nth-child(8) {
+    top   : 43%; left : 66%; width : 25%;
+    transform : rotate(35deg);
+}
+.project-anim--kinesys .anim-line:nth-child(9) {
+    top   : 68%; left : 34%; width : 20%;
+    transform : rotate(40deg);
+}
+@keyframes kinesysPulse {
+    0%, 100% { transform : scale(1); opacity : 0.5; }
+    50%      { transform : scale(1.5); opacity : 1; }
+}
+
+/* --- Traction AI: RevOps Platform --- */
+.project-anim--traction {
+    background : linear-gradient(135deg, #0a1414 0%, #0a1e1e 100%);
+}
+.project-anim--traction .anim-bar-v {
+    position      : absolute;
+    bottom        : 25%;
+    width         : 8%;
+    border-radius : 2px 2px 0 0;
+    background    : rgba(20, 184, 166, 0.5);
+    animation     : tractionGrow 2s ease-in-out infinite;
+}
+.project-anim--traction .anim-bar-v:nth-child(1) { left : 18%; height : 20%; animation-delay : 0s; }
+.project-anim--traction .anim-bar-v:nth-child(2) { left : 30%; height : 35%; animation-delay : 0.15s; }
+.project-anim--traction .anim-bar-v:nth-child(3) { left : 42%; height : 28%; animation-delay : 0.3s; }
+.project-anim--traction .anim-bar-v:nth-child(4) { left : 54%; height : 45%; animation-delay : 0.45s; }
+.project-anim--traction .anim-bar-v:nth-child(5) { left : 66%; height : 38%; animation-delay : 0.6s; }
+.project-anim--traction .anim-bar-v:nth-child(6) { left : 78%; height : 52%; animation-delay : 0.75s; }
+.project-anim--traction .anim-trend {
+    position : absolute;
+    top      : 22%;
+    left     : 15%;
+    width    : 70%;
+    height   : 40%;
+    border-left   : 1px solid rgba(20, 184, 166, 0.15);
+    border-bottom : 1px solid rgba(20, 184, 166, 0.15);
+}
+@keyframes tractionGrow {
+    0%, 100% { transform : scaleY(1); opacity : 0.5; }
+    50%      { transform : scaleY(1.3); opacity : 0.9; }
+}
+
+/* --- VoiceAI: Voice AI --- */
+.project-anim--voiceai {
+    background : linear-gradient(135deg, #0f0a1a 0%, #1a0a2e 100%);
+}
+.project-anim--voiceai .anim-wave-bar {
+    position      : absolute;
+    top           : 50%;
+    width         : 3px;
+    border-radius : 1.5px;
+    background    : rgba(139, 92, 246, 0.6);
+    transform     : translateY(-50%);
+    animation     : voiceWave 1.2s ease-in-out infinite;
+}
+.project-anim--voiceai .anim-wave-bar:nth-child(1)  { left : 20%; height : 18%; animation-delay : 0s; }
+.project-anim--voiceai .anim-wave-bar:nth-child(2)  { left : 26%; height : 30%; animation-delay : 0.1s; }
+.project-anim--voiceai .anim-wave-bar:nth-child(3)  { left : 32%; height : 45%; animation-delay : 0.2s; }
+.project-anim--voiceai .anim-wave-bar:nth-child(4)  { left : 38%; height : 35%; animation-delay : 0.3s; }
+.project-anim--voiceai .anim-wave-bar:nth-child(5)  { left : 44%; height : 55%; animation-delay : 0.15s; }
+.project-anim--voiceai .anim-wave-bar:nth-child(6)  { left : 50%; height : 40%; animation-delay : 0.25s; }
+.project-anim--voiceai .anim-wave-bar:nth-child(7)  { left : 56%; height : 55%; animation-delay : 0.35s; }
+.project-anim--voiceai .anim-wave-bar:nth-child(8)  { left : 62%; height : 32%; animation-delay : 0.2s; }
+.project-anim--voiceai .anim-wave-bar:nth-child(9)  { left : 68%; height : 45%; animation-delay : 0.1s; }
+.project-anim--voiceai .anim-wave-bar:nth-child(10) { left : 74%; height : 22%; animation-delay : 0.3s; }
+@keyframes voiceWave {
+    0%, 100% { transform : translateY(-50%) scaleY(0.5); opacity : 0.4; }
+    50%      { transform : translateY(-50%) scaleY(1.4); opacity : 1; }
+}
+
+/* --- VISU-Reborn: AI Research --- */
+.project-anim--visu {
+    background : linear-gradient(135deg, #0a0a14 0%, #14141e 100%);
+}
+.project-anim--visu .anim-iris {
+    width         : 36px;
+    height        : 36px;
+    border        : 2px solid rgba(99, 102, 241, 0.5);
+    border-radius : 50%;
+    position      : absolute;
+    top           : 50%;
+    left          : 50%;
+    transform     : translate(-50%, -50%);
+}
+.project-anim--visu .anim-iris::after {
+    content       : "";
+    width         : 12px;
+    height        : 12px;
+    border-radius : 50%;
+    background    : rgba(99, 102, 241, 0.7);
+    position      : absolute;
+    top           : 50%;
+    left          : 50%;
+    transform     : translate(-50%, -50%);
+    animation     : visuPupil 3s ease-in-out infinite;
+}
+.project-anim--visu .anim-orbit {
+    width         : 6px;
+    height        : 6px;
+    border-radius : 50%;
+    background    : rgba(99, 102, 241, 0.5);
+    position      : absolute;
+    top           : 50%;
+    left          : 50%;
+    animation     : visuOrbit 4s linear infinite;
+}
+.project-anim--visu .anim-orbit:nth-child(2) { animation-delay : 0s; --orbit-r : 40px; }
+.project-anim--visu .anim-orbit:nth-child(3) { animation-delay : -1.33s; --orbit-r : 40px; }
+.project-anim--visu .anim-orbit:nth-child(4) { animation-delay : -2.66s; --orbit-r : 40px; }
+.project-anim--visu .anim-orbit:nth-child(5) { animation-delay : -0.5s; --orbit-r : 58px; width : 4px; height : 4px; opacity : 0.4; }
+.project-anim--visu .anim-orbit:nth-child(6) { animation-delay : -2s; --orbit-r : 58px; width : 4px; height : 4px; opacity : 0.4; }
+.project-anim--visu .anim-orbit:nth-child(7) { animation-delay : -3.5s; --orbit-r : 58px; width : 4px; height : 4px; opacity : 0.4; }
+@keyframes visuPupil {
+    0%, 100% { transform : translate(-50%, -50%) scale(1); }
+    50%      { transform : translate(-50%, -50%) scale(1.3); }
+}
+@keyframes visuOrbit {
+    0%   { transform : translate(-50%, -50%) rotate(0deg) translateX(var(--orbit-r)) rotate(0deg); }
+    100% { transform : translate(-50%, -50%) rotate(360deg) translateX(var(--orbit-r)) rotate(-360deg); }
+}
+
+/* --- Zepp: Voice Transcription Platform --- */
+.project-anim--zepp {
+    background : linear-gradient(135deg, #0a1a0f 0%, #0a2018 100%);
+}
+.project-anim--zepp .anim-mic {
+    width         : 16px;
+    height        : 28px;
+    border-radius : 8px;
+    background    : rgba(16, 185, 129, 0.6);
+    position      : absolute;
+    top           : 35%;
+    left          : 50%;
+    transform     : translateX(-50%);
+}
+.project-anim--zepp .anim-mic-stand {
+    width      : 2px;
+    height     : 10px;
+    background : rgba(16, 185, 129, 0.4);
+    position   : absolute;
+    top        : calc(35% + 28px);
+    left       : 50%;
+    transform  : translateX(-50%);
+}
+.project-anim--zepp .anim-mic-base {
+    width         : 20px;
+    height        : 2px;
+    border-radius : 1px;
+    background    : rgba(16, 185, 129, 0.4);
+    position      : absolute;
+    top           : calc(35% + 38px);
+    left          : 50%;
+    transform     : translateX(-50%);
+}
+.project-anim--zepp .anim-mic-arc {
+    width         : 28px;
+    height        : 18px;
+    border        : 2px solid rgba(16, 185, 129, 0.3);
+    border-top    : none;
+    border-radius : 0 0 14px 14px;
+    position      : absolute;
+    top           : calc(35% + 18px);
+    left          : 50%;
+    transform     : translateX(-50%);
+}
+.project-anim--zepp .anim-ring {
+    width         : 30px;
+    height        : 30px;
+    border        : 1.5px solid rgba(16, 185, 129, 0.3);
+    border-radius : 50%;
+    position      : absolute;
+    top           : 38%;
+    left          : 50%;
+    transform     : translate(-50%, -50%);
+    animation     : zeppRing 2s ease-out infinite;
+}
+.project-anim--zepp .anim-ring:nth-child(5) { animation-delay : 0s; }
+.project-anim--zepp .anim-ring:nth-child(6) { animation-delay : 0.5s; }
+.project-anim--zepp .anim-ring:nth-child(7) { animation-delay : 1s; }
+.project-anim--zepp .anim-text-line {
+    position         : absolute;
+    height           : 2px;
+    border-radius    : 1px;
+    background       : rgba(16, 185, 129, 0.3);
+    transform-origin : left center;
+    animation        : zeppType 2.5s ease-in-out infinite;
+}
+.project-anim--zepp .anim-text-line:nth-child(8) {
+    bottom : 18%; left : 20%; width : 55%; animation-delay : 0s;
+}
+.project-anim--zepp .anim-text-line:nth-child(9) {
+    bottom : 12%; left : 20%; width : 40%; animation-delay : 0.4s;
+}
+@keyframes zeppRing {
+    0%   { transform : translate(-50%, -50%) scale(1); opacity : 0.5; }
+    100% { transform : translate(-50%, -50%) scale(2.5); opacity : 0; }
+}
+@keyframes zeppType {
+    0%       { transform : scaleX(0); opacity : 0; }
+    20%      { transform : scaleX(0.6); opacity : 0.4; }
+    50%      { transform : scaleX(1); opacity : 0.4; }
+    80%      { transform : scaleX(1); opacity : 0.2; }
+    100%     { transform : scaleX(0); opacity : 0; }
+}
+
+/* --- Modal gallery animations (larger) --- */
+.modal-popup .project-anim {
+    width         : 100%;
+    height        : 300px;
+    margin-bottom : var(--vspace-0_75);
+}
+
+/* -------------------------------------------------------------------
  * responsive:
  * works
  * ------------------------------------------------------------------- */
@@ -4019,10 +4352,12 @@ img.u-pull-left {
         position : static;
     }
 
-    .folio-list__item-pic img {
+    .folio-list__item-pic img,
+    .folio-list__item-pic .project-anim {
         max-width : 100%;
         width     : 100%;
         height    : auto;
+        min-height: 160px;
     }
 
     .folio-list__item-text,
